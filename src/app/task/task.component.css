@@ -1,0 +1,14 @@
+
+.task-wrapper {
+  transition: all .25s cubic-bezier(.02,.01,.47,1);
+}
+.task-wrapper:hover {
+  box-shadow: 0 30px 30px rgba(0,0,0,.04);
+  transform: translate(0,-6px);
+  transition-delay: 0s !important;
+}
+.task-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}

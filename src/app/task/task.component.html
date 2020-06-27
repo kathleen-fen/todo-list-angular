@@ -1,0 +1,11 @@
+<div class="task-wrapper alert alert-primary alert-dismissible fade show">
+  <div class="task-name alert-heading">{{ task.name }}</div>
+  <hr>
+  <div class="task-deadline">{{ task.deadline }}</div>
+  <div class="task-descr">{{ task.descr }}</div>
+  <div class="task-status">{{ task.status }}</div>
+  <div class="task-priority">{{ task.priority }}</div>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="delTask()" >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
