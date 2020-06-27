@@ -1,5 +1,10 @@
 <div class="task-wrapper alert alert-primary alert-dismissible fade show">
-  <div class="task-name alert-heading">{{ task.name }}</div>
+  <div class="head-wrapper">
+    <div *ngIf="nameEditMode"  class="edit-input"><input #nameEditInput id="nameEditInput" type="text" class="form-control" [value]="task.name" (blur)="changeName($event)" (keyup)="onKey($event)"></div>
+    <div *ngIf="!nameEditMode" class="task-name alert-heading">{{ task.name }}</div>
+    <div *ngIf="!nameEditMode" class="icon" (click)="onEditName()"><img src="./assets/icons/pencil.png" alt="edit"></div>
+  </div>
+  
   <hr>
   <div class="task-deadline">{{ task.deadline }}</div>
   <div class="task-descr">{{ task.descr }}</div>

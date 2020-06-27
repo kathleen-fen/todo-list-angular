@@ -70,4 +70,8 @@ export class AppComponent {
   deleteTask(index) {
     this.tasks.splice(index,1)
   }
+  onChangeName(newName,index){
+    this.tasks[index].name = newName
+  }
+  
 }

@@ -43,5 +43,6 @@
     *ngFor="let t of tasks; let index = index"
     [task]="t"
     (onDelete)="deleteTask(index)"
+    (onChangeName)=onChangeName($event,index)
   ></app-task>
 </div>

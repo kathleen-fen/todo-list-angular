@@ -12,3 +12,20 @@
   font-weight: 500;
   line-height: 1.5rem;
 }
+.head-wrapper {
+  display: flex;
+}
+.icon {
+  margin-left: 10px;
+}
+.icon:hover {
+  cursor: pointer;
+} 
+.icon img{
+    max-width: 20px;
+    max-height: 20px;
+}
+.editMode {
+  visibility: hidden;
+  width: 0;
+}
