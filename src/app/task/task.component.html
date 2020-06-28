@@ -1,15 +1,27 @@
 <div class="task-wrapper alert alert-primary alert-dismissible fade show">
-  <div class="head-wrapper">
-    <div *ngIf="nameEditMode"  class="edit-input"><input #nameEditInput id="nameEditInput" type="text" class="form-control" [value]="task.name" (blur)="changeName($event)" (keyup)="onKey($event)"></div>
-    <div *ngIf="!nameEditMode" class="task-name alert-heading">{{ task.name }}</div>
-    <div *ngIf="!nameEditMode" class="icon" (click)="onEditName()"><img src="./assets/icons/pencil.png" alt="edit"></div>
+    <div class="field-wrapper">
+      <div *ngIf="nameEditMode"  class="edit-input">
+        <input  #nameEditInput id="editInput" type="text" class="form-control" [value]="task.name" (blur)="changeName($event,'name')" (keyup)="onKey($event,'name')">
+      </div>
+      <div *ngIf="!nameEditMode" class="task-name alert-heading">{{ task.name }}</div>
+      <div *ngIf="!nameEditMode" class="icon" (click)="onEdit('name')"><img src="./assets/icons/pencil.png" alt="edit"></div>
+    </div>
+
+  <hr>
+  <div class="field-wrapper">
+    <div *ngIf="descrEditMode"  class="edit-input">
+      <textarea name="" id="editInput"  rows="2" class="form-control" [value]="task.descr"  (blur)="changeName($event,'descr')" (keyup)="onKey($event,'descr')"></textarea>
+   </div>
+    <div *ngIf="!descrEditMode" class="task-descr">{{ task.descr }}</div>
+    <div *ngIf="!descrEditMode" class="icon" (click)="onEdit('descr')"><img src="./assets/icons/pencil.png" alt="edit"></div>
   </div>
   
   <hr>
-  <div class="task-deadline">{{ task.deadline }}</div>
-  <div class="task-descr">{{ task.descr }}</div>
-  <div class="task-status">{{ task.status }}</div>
-  <div class="task-priority">{{ task.priority }}</div>
+  <div class="field-wrapper">
+    <div *ngIf="deadlineEditMode"  class="edit-input"><input #nameEditInput id="editInput" type="date" class="form-control" [value]="task.deadline" (blur)="changeName($event,'deadline')" (keyup)="onKey($event,'deadline')"></div>
+    <div *ngIf="!deadlineEditMode" class="task-deadline">{{ task.deadline | date }}</div>
+    <div *ngIf="!deadlineEditMode" class="icon" (click)="onEdit('deadline')"><img src="./assets/icons/pencil.png" alt="edit"></div>
+  </div>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="delTask()" >
     <span aria-hidden="true">&times;</span>
   </button>

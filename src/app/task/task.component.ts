@@ -8,50 +8,46 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
   nameEditMode:boolean = false
   deadlineEditMode:boolean = false
   descrEditMode:boolean = false
-  form: FormGroup
   @Input() task: Task
   @Output() onDelete = new EventEmitter() 
-  @Output() onChangeName = new EventEmitter() 
+  @Output() onChange = new EventEmitter() 
   @ViewChild('nameEditInput', {static: false}) nameEdit: ElementRef;
   
   constructor() { }
 
-  ngOnInit(): void {
-    this.form = new FormGroup({
-    name: new FormControl('', Validators.required),
-    deadline: new FormControl(''),
-    /* status: new FormControl('todo'),
-    priority: new FormControl('medium'), */
-    descr: new FormControl('')
-    })
-  }
 
   delTask(){
    this.onDelete.emit()
   }
-  onEditName() {
-    this.nameEditMode = true
-    setTimeout(()=>document.getElementById('nameEditInput').focus(),100)
+  onEdit(field) {
+    this[field+'EditMode'] = true
+    setTimeout(()=>document.getElementById('editInput').focus(),100)
   }
-  changeName(e) {
-    this.nameEditMode = false
-    this.onChangeName.emit(e.target.value)
-  }
-  onKey(e) {
-    if (e.code==="Enter") {
-      this.changeName(e)
-    } 
-    if (e.code==="Escape") {
-      e.target.value=this.task.name
-      this.nameEditMode = false
+  changeName(e, field) {
+      
+    if (field==='name' && e.target.value.trim()==="") {
+      document.getElementById('editInput').focus()
+      return 0
     }
     
-
+    this[field+'EditMode'] = false
+    let val = {
+      value: e.target.value,
+      field
+    }
+    this.onChange.emit(val)
   }
-  
-
+  onKey(e, field) {
+    if (e.code==="Enter") {
+      this.changeName(e,field)
+    } 
+    if (e.code==="Escape") {
+      e.target.value=this.task[field]
+      this[field+'EditMode'] = false
+    }
+  }
 }
