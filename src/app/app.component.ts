@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 export enum StatusEnum {
-  'for execution',
-  'in work',
-  'done'
+  todo,
+  doing,
+  done
 }
 
 export enum PriorityEnum {
@@ -24,16 +25,10 @@ export interface Task {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   title = 'todo-list';
-  
-  newTaskName: string
-  newTaskStatus = 'for execution'
-  newTaskDescr: string
-  newTaskDeadline: Date
-  newTaskPriority = 'medium' 
-
+  form: FormGroup
   tasks: Task [] = [
     {
       name: 'English Homework',
@@ -50,22 +45,17 @@ export class AppComponent {
       priority: 'low'
     }
   ]
-  constructor() {
-    //this.newTaskStatus = 'hgfdfdgf'
+  ngOnInit () {
+    this.form = new FormGroup({
+      name: new FormControl('', Validators.required),
+      deadline: new FormControl(''),
+      status: new FormControl('todo'),
+      priority: new FormControl('medium'),
+      descr: new FormControl('')
+    })
   }
   addTask() {
-    this.tasks.unshift({
-      name: this.newTaskName,
-      status: this.newTaskStatus,
-      descr: this.newTaskDescr,
-      deadline: this.newTaskDeadline,
-      priority: this.newTaskPriority
-    });
-    this.newTaskName = ''
-    this.newTaskStatus = 'for execution'
-    this.newTaskDescr = ''
-    this.newTaskDeadline = null
-    this.newTaskPriority = 'medium' 
+    this.tasks.unshift({ ...this.form.value});
   }
   deleteTask(index) {
     this.tasks.splice(index,1)

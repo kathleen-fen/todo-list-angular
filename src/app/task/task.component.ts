@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { Task } from '../app.component';
 import { EventEmitter } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
@@ -9,6 +10,9 @@ import { EventEmitter } from '@angular/core';
 })
 export class TaskComponent implements OnInit {
   nameEditMode:boolean = false
+  deadlineEditMode:boolean = false
+  descrEditMode:boolean = false
+  form: FormGroup
   @Input() task: Task
   @Output() onDelete = new EventEmitter() 
   @Output() onChangeName = new EventEmitter() 
@@ -17,6 +21,13 @@ export class TaskComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+    name: new FormControl('', Validators.required),
+    deadline: new FormControl(''),
+    /* status: new FormControl('todo'),
+    priority: new FormControl('medium'), */
+    descr: new FormControl('')
+    })
   }
 
   delTask(){

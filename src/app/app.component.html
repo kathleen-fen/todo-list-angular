@@ -5,25 +5,28 @@
 
 <div class="container">
 
-  <div class="form-wrapper">
+  <form [formGroup]="form" class="form-wrapper" (ngSubmit)="addTask()">
     <div class="form-group row">
       <label for="FormControlName" class="col-md-2 col-form-label">Task name:</label>
-      <input type="text" class="form-control col-md-3 form-control-sm" id="FormControlName" placeholder="Task name" [(ngModel)] = "newTaskName">
+      <div  class="col-md-3 name-wrapper">
+        <input type="text" class="form-control  form-control-sm" id="FormControlName" placeholder="Task name"  formControlName="name">
+        <div  *ngIf="form.get('name').invalid && form.get('name').touched" class="validation"><small>Please enter task name</small></div>
+      </div>
       <label for="FormControlDeadline" class="col-md-2 col-form-label col-sm-2">Deadline:</label>
-      <input type="date" class="form-control col-md-3 form-control-sm" id="FormControlDeadline" [(ngModel)] = "newTaskDeadline" >
+      <input type="date" class="form-control col-md-3 form-control-sm" id="FormControlDeadline"  formControlName="deadline">
     </div> 
     
       
     
     <div class="form-group row">
       <label for="FormControlStatus" class="col-md-2 col-form-label">Task status:</label>
-      <select class="form-control col-md-3 form-control-sm" id="FormControlStatus" [(ngModel)] = "newTaskStatus">
-        <option>for execution</option>
-        <option>in work</option>
+      <select class="form-control col-md-3 form-control-sm" id="FormControlStatus"  formControlName="status">
+        <option>todo</option>
+        <option>doing</option>
         <option>done</option>
       </select>
       <label for="FormControlPriority" class="col-md-2 col-form-label">Task priority:</label>
-      <select class="form-control col-md-3 form-control-sm" id="FormControlPriority" [(ngModel)] = "newTaskPriority">
+      <select class="form-control col-md-3 form-control-sm" id="FormControlPriority"  formControlName="priority">
         <option>low</option>
         <option>medium</option>
         <option>high</option>
@@ -31,12 +34,12 @@
     </div>
     <div class="form-group row">
       <label for="FormControlDescr" class="col-md-2 col-form-label">Description:</label>
-      <textarea class="form-control form-control-sm col-md-8" id="FormControlDescr" rows="2" [(ngModel)] = "newTaskDescr" ></textarea>
+      <textarea class="form-control form-control-sm col-md-8" id="FormControlDescr" rows="2"  formControlName="descr"></textarea>
       <div class="col-md-2 button-wrapper">
-        <button class="btn btn-primary" (click)="addTask()">ADD Task</button>
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid" >ADD Task</button>
       </div>
     </div>
-  </div>  
+  </form>  
     
   <hr>
   <app-task

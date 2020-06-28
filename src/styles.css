@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import './../node_modules/bootstrap/dist/css/bootstrap.css';
 
+input.ng-invalid.ng-touched {
+    border: solid 1px red;
+    outline: 0!important;
+}
+input.ng-invalid.ng-touched:focus {
+    outline:none;
+    box-shadow: none;
+}
+.validation small {
+    color: red;
+}
  
