@@ -8,16 +8,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit{
   nameEditMode:boolean = false
   deadlineEditMode:boolean = false
   descrEditMode:boolean = false
+  form: FormGroup
   @Input() task: Task
   @Output() onDelete = new EventEmitter() 
   @Output() onChange = new EventEmitter() 
   @ViewChild('nameEditInput', {static: false}) nameEdit: ElementRef;
   
-  constructor() { }
+  ngOnInit () {
+    this.form = new FormGroup({
+      name: new FormControl(this.task.name, Validators.required),
+    })
+  }
 
 
   delTask(){
@@ -46,6 +51,12 @@ export class TaskComponent {
       this.changeName(e,field)
     } 
     if (e.code==="Escape") {
+      if (field==='name') {
+        let nameObj = {
+          name: this.task.name
+        }
+        this.form.setValue({...nameObj})
+      }
       e.target.value=this.task[field]
       this[field+'EditMode'] = false
     }
