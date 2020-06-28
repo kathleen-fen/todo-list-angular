@@ -1,4 +1,4 @@
-<div class="task-wrapper alert alert-primary alert-dismissible fade show">
+<div [ngClass]="{'alert-info': task.priority==='low', 'alert-warning': task.priority==='medium', 'alert-danger': task.priority==='high'}" class="task-wrapper alert alert-dismissible fade show">
     <div class="field-wrapper">
       <div *ngIf="nameEditMode"  class="edit-input">
         <input  #nameEditInput id="editInput" type="text" class="form-control" [value]="task.name" (blur)="changeName($event,'name')" (keyup)="onKey($event,'name')">

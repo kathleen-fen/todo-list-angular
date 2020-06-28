@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 export enum StatusEnum {
   todo,
   doing,
@@ -29,18 +29,32 @@ export class AppComponent implements OnInit {
 
   title = 'todo-list';
   form: FormGroup
+  defaultTask = {
+    name: '',
+    status: 'todo',
+    descr: '',
+    deadline: '',
+    priority: 'medium'
+  }
   tasks: Task [] = [
     {
       name: 'English Homework',
-      status: 'for execution',
-      descr: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+      status: 'todo',
+      descr: 'Exercises 1,5,10 page N876',
       deadline: "2020-06-19",
-      priority: 'high'
+      priority: 'medium'
     },
     {
       name: 'Math Homework',
       status: 'done',
-      descr: 'ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet',
+      descr: 'prove the Pythagorean theorem',
+      deadline: "2020-06-19",
+      priority: 'high'
+    },
+    {
+      name: 'Literature Homework',
+      status: 'done',
+      descr: 'Reading novels by Dostoevsky',
       deadline: "2020-06-19",
       priority: 'low'
     }
@@ -55,7 +69,9 @@ export class AppComponent implements OnInit {
     })
   }
   addTask() {
-    this.tasks.unshift({ ...this.form.value});
+    this.tasks.unshift({ ...this.form.value})
+    this.form.setValue({...this.defaultTask})
+    this.form.markAsUntouched()
   }
   deleteTask(index) {
     this.tasks.splice(index,1)
