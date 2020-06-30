@@ -1,6 +1,7 @@
 
 .task-wrapper {
   transition: all .25s cubic-bezier(.02,.01,.47,1);
+  cursor:move;
 }
 .task-wrapper:hover {
   box-shadow: 0 30px 30px rgba(0,0,0,.04);
