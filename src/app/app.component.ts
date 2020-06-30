@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
 export enum StatusEnum {
   todo,
   doing,
@@ -13,6 +14,7 @@ export enum PriorityEnum {
 }
 
 export interface Task {
+  id: string,
   name: string,
   status: string,
   descr: string,
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
   }
   tasks: Task [] = [
     {
+      id:uuidv4(),
       name: 'English Homework',
       status: 'todo',
       descr: 'Exercises 1,5,10 page N876',
@@ -45,6 +48,7 @@ export class AppComponent implements OnInit {
       priority: 'medium'
     },
     {
+      id:uuidv4(),
       name: 'Math Homework',
       status: 'done',
       descr: 'prove the Pythagorean theorem',
@@ -52,6 +56,7 @@ export class AppComponent implements OnInit {
       priority: 'high'
     },
     {
+      id:uuidv4(),
       name: 'Literature Homework',
       status: 'done',
       descr: 'Reading novels by Dostoevsky',
@@ -69,15 +74,16 @@ export class AppComponent implements OnInit {
     })
   }
   addTask() {
-    this.tasks.unshift({ ...this.form.value})
+    this.tasks.unshift({ id:uuidv4(),...this.form.value})
+    console.log(this.tasks)
     this.form.setValue({...this.defaultTask})
     this.form.markAsUntouched()
   }
-  deleteTask(index) {
-    this.tasks.splice(index,1)
+  deleteTask(delTask) {
+    this.tasks.splice(this.tasks.indexOf(delTask),1)
   }
-  onChange(val,index){
-    this.tasks[index][val.field] = val.value
+  onChange(val,t){
+    this.tasks[this.tasks.indexOf(t)][val.field] = val.value
   }
   
 }
