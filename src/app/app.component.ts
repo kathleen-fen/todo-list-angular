@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ElementRef} from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -111,23 +111,28 @@ export class AppComponent implements OnInit {
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data,
         event.previousIndex, event.currentIndex)
+        let cont  = event.container.id
+        let el = event.item.element.nativeElement.id
+        
         let newStatus
-        switch (event.container.element.nativeElement.id) {
-          case 'cdk-drop-list-0':
-            newStatus='todo'
-          case 'cdk-drop-list-1':
-            newStatus='doing'
-          case 'cdk-drop-list-2':
-            newStatus='done'  
-        } 
+        if (cont==='cdk-drop-list-0')
+        {newStatus='todo'}
+        if (cont==='cdk-drop-list-1')
+        {newStatus='doing'}
+        if (cont==='cdk-drop-list-2')
+        {newStatus='done'}
+        this.tasks.find(r => r.id === el).status = newStatus
+        console.log(newStatus)
+        console.log(el)
+        console.log(this.tasks)
     //  this.tasks.find(el=>el.id===event.item.element.nativeElement.id).status= newStatus 
-    console.log(this.tasks.find(el=>el.id===event.item.element.nativeElement.id))
-      this.updateTasks()
+   // console.log(this.tasks.find(el=>el.id===event.item.element.nativeElement.id))
+         this.updateTasks()
     } 
     
     //console.log(element(event.item.element.nativeElement))
-    console.log(event.item.element.nativeElement.id)
-    console.log(this.tasks)
+    //console.log(event.item.element.nativeElement.id)
+    //console.log(this.tasks)
     /* else {
       moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
     } */

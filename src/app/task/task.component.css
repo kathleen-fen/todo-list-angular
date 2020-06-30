@@ -3,15 +3,19 @@
   transition: all .25s cubic-bezier(.02,.01,.47,1);
   cursor:move;
 }
+.task-wrapper hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .task-wrapper:hover {
   box-shadow: 0 30px 30px rgba(0,0,0,.04);
   transform: translate(0,-6px);
   transition-delay: 0s !important;
 }
 .task-name {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.5rem;
+  line-height: 1.1rem;
 }
 .field-wrapper {
   display: flex;

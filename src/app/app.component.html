@@ -46,6 +46,7 @@
     [cdkDropListData]="todoTasks" (cdkDropListDropped)="drop($event)">
       <h4>TODO</h4>
       <app-task
+      [id]="t.id"
       *ngFor="let t of todoTasks"
       [task]="t"
       (onDelete)="deleteTask(t)"
@@ -57,6 +58,7 @@
     [cdkDropListData]="doingTasks" (cdkDropListDropped)="drop($event)">
       <h4>DOING</h4>
       <app-task
+      [id]="t.id"
       *ngFor="let t of doingTasks"
       [task]="t"
       (onDelete)="deleteTask(t)"
@@ -68,6 +70,7 @@
     [cdkDropListData]="doneTasks" (cdkDropListDropped)="drop($event)">
       <h4>DONE</h4>
       <app-task
+      [id]="t.id"
       *ngFor="let t of doneTasks"
       [task]="t"
       (onDelete)="deleteTask(t)"

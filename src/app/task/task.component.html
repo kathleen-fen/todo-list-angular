@@ -1,4 +1,4 @@
-<div [id]=task.id [ngClass]="{'alert-info': task.priority==='low', 'alert-warning': task.priority==='medium', 'alert-danger': task.priority==='high'}" class="task-wrapper box alert alert-dismissible fade show">
+<div  [ngClass]="{'alert-info': task.priority==='low', 'alert-warning': task.priority==='medium', 'alert-danger': task.priority==='high'}" class="task-wrapper box alert alert-dismissible fade show">
   <form [formGroup]="form">
     <div class="field-wrapper">
       <div *ngIf="nameEditMode"  class="edit-input">
