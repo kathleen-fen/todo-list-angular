@@ -113,6 +113,11 @@ export class AppComponent implements OnInit {
       this.doingTasks.sort(this.sortByDeadline)
       this.doneTasks.sort(this.sortByDeadline)
     }
+    if (this.sortBy === 'priority') {
+      this.todoTasks.sort(this.sortByPriority)
+      this.doingTasks.sort(this.sortByPriority)
+      this.doneTasks.sort(this.sortByPriority)
+    }
       
   }
 
@@ -142,6 +147,12 @@ export class AppComponent implements OnInit {
     let date_b = new Date(b.deadline)
     if (date_a > date_b) return 1
     if (date_a < date_b) return -1
+  }
+
+  sortByPriority(a, b) {
+    if (a.priority === b.priority) return 0
+    if (PriorityEnum[a.priority] < PriorityEnum[b.priority]) return 1
+    if (PriorityEnum[a.priority] > PriorityEnum[b.priority]) return -1
   }
   
 }
