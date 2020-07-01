@@ -1,5 +1,12 @@
 <nav class="navbar navbar-dark bg-primary">
   <span class="navbar-brand mb-0 h1"> Notes </span>
+  <div class="form-inline sort-form">
+    <label>Sort by: </label>
+    <select class="form-control mr-sm-2" [(ngModel)]="sortBy" (change)="updateTasks()">
+        <option value="deadline">deadline</option>
+        <option value="priority">priority</option>
+    </select>
+  </div>
 </nav>
 
 

@@ -31,6 +31,7 @@ export interface Task {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  
   status: string;
   title = 'todo-list';
   form: FormGroup
@@ -70,6 +71,7 @@ export class AppComponent implements OnInit {
   todoTasks: Task[]
   doingTasks: Task[]
   doneTasks: Task[]
+  sortBy: string = 'deadline'
   ngOnInit () {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -105,6 +107,13 @@ export class AppComponent implements OnInit {
     this.todoTasks = this.tasks.filter(r=>r.status==='todo')
     this.doingTasks = this.tasks.filter(r=>r.status==='doing')
     this.doneTasks = this.tasks.filter(r=>r.status==='done')
+    console.log(this.todoTasks.sort(this.sortByDeadline))
+    if (this.sortBy === 'deadline') {
+      this.todoTasks.sort(this.sortByDeadline)
+      this.doingTasks.sort(this.sortByDeadline)
+      this.doneTasks.sort(this.sortByDeadline)
+    }
+      
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -113,7 +122,6 @@ export class AppComponent implements OnInit {
         event.previousIndex, event.currentIndex)
         let cont  = event.container.id
         let el = event.item.element.nativeElement.id
-        
         let newStatus
         if (cont==='cdk-drop-list-0')
         {newStatus='todo'}
@@ -122,20 +130,18 @@ export class AppComponent implements OnInit {
         if (cont==='cdk-drop-list-2')
         {newStatus='done'}
         this.tasks.find(r => r.id === el).status = newStatus
-        console.log(newStatus)
-        console.log(el)
-        console.log(this.tasks)
-    //  this.tasks.find(el=>el.id===event.item.element.nativeElement.id).status= newStatus 
-   // console.log(this.tasks.find(el=>el.id===event.item.element.nativeElement.id))
-         this.updateTasks()
+        this.updateTasks()
     } 
-    
-    //console.log(element(event.item.element.nativeElement))
-    //console.log(event.item.element.nativeElement.id)
-    //console.log(this.tasks)
-    /* else {
-      moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
-    } */
+  }
+
+  sortByDeadline(a, b) {
+    if (a.deadline === b.deadline) return 0
+    if (a.deadline === '') return 1
+    if (b.deadline === '') return -1
+    let date_a = new Date(a.deadline)
+    let date_b = new Date(b.deadline)
+    if (date_a > date_b) return 1
+    if (date_a < date_b) return -1
   }
   
 }
