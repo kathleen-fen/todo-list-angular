@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit{
     
   }
   ngAfterViewChecked(){
-   // if (this.nameEditMode) console.log(this.nameEdit)
+    if (this.nameEditMode) this.nameEdit.nativeElement.focus()
   }
   
 
@@ -35,12 +35,13 @@ export class TaskComponent implements OnInit{
   }
   onEdit(field) {
     this[field+'EditMode'] = true
-    setTimeout(()=>document.getElementById('editInput').focus(),100)
+   // setTimeout(()=>document.getElementById('editInput').focus(),100)
   }
   changeName(e, field) {
       
     if (field==='name' && e.target.value.trim()==="") {
-      document.getElementById('editInput').focus()
+     // document.getElementById('editInput').focus()
+      this.nameEdit.nativeElement.focus()
       return 0
     }
     
