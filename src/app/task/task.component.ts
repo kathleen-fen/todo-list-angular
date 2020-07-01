@@ -22,7 +22,12 @@ export class TaskComponent implements OnInit{
     this.form = new FormGroup({
       name: new FormControl(this.task.name, Validators.required),
     })
+    
   }
+  ngAfterViewChecked(){
+   // if (this.nameEditMode) console.log(this.nameEdit)
+  }
+  
 
 
   delTask(){

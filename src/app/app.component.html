@@ -6,6 +6,11 @@
         <option value="deadline">deadline</option>
         <option value="priority">priority</option>
     </select>
+    <div (click)="asc=!asc; updateTasks()">
+      <span *ngIf="!asc" class="arrow">&#9660;</span>
+      <span *ngIf="asc" class="arrow">&#9650;</span>
+    </div>
+    
   </div>
 </nav>
 

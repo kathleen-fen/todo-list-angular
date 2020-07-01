@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef} from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 export enum StatusEnum {
@@ -72,7 +72,9 @@ export class AppComponent implements OnInit {
   doingTasks: Task[]
   doneTasks: Task[]
   sortBy: string = 'deadline'
+  asc: boolean = false
   ngOnInit () {
+    console.log(this.asc?-1:1)
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       deadline: new FormControl(''),
@@ -107,16 +109,16 @@ export class AppComponent implements OnInit {
     this.todoTasks = this.tasks.filter(r=>r.status==='todo')
     this.doingTasks = this.tasks.filter(r=>r.status==='doing')
     this.doneTasks = this.tasks.filter(r=>r.status==='done')
-    console.log(this.todoTasks.sort(this.sortByDeadline))
+    
     if (this.sortBy === 'deadline') {
-      this.todoTasks.sort(this.sortByDeadline)
-      this.doingTasks.sort(this.sortByDeadline)
-      this.doneTasks.sort(this.sortByDeadline)
+      this.todoTasks.sort(this.sortByDeadline.bind(this))
+      this.doingTasks.sort(this.sortByDeadline.bind(this))
+      this.doneTasks.sort(this.sortByDeadline.bind(this))
     }
     if (this.sortBy === 'priority') {
-      this.todoTasks.sort(this.sortByPriority)
-      this.doingTasks.sort(this.sortByPriority)
-      this.doneTasks.sort(this.sortByPriority)
+      this.todoTasks.sort(this.sortByPriority.bind(this))
+      this.doingTasks.sort(this.sortByPriority.bind(this))
+      this.doneTasks.sort(this.sortByPriority.bind(this))
     }
       
   }
@@ -141,18 +143,18 @@ export class AppComponent implements OnInit {
 
   sortByDeadline(a, b) {
     if (a.deadline === b.deadline) return 0
-    if (a.deadline === '') return 1
-    if (b.deadline === '') return -1
+    if (a.deadline === '') return  this.asc?1:-1
+    if (b.deadline === '') return  this.asc?-1:1
     let date_a = new Date(a.deadline)
     let date_b = new Date(b.deadline)
-    if (date_a > date_b) return 1
-    if (date_a < date_b) return -1
+    if (date_a > date_b) return  this.asc?1:-1
+    if (date_a < date_b) return this.asc?-1:1
   }
 
   sortByPriority(a, b) {
     if (a.priority === b.priority) return 0
-    if (PriorityEnum[a.priority] < PriorityEnum[b.priority]) return 1
-    if (PriorityEnum[a.priority] > PriorityEnum[b.priority]) return -1
+    if (PriorityEnum[a.priority] < PriorityEnum[b.priority]) return this.asc?-1:1
+    if (PriorityEnum[a.priority] > PriorityEnum[b.priority]) return this.asc?1:-1
   }
   
 }
