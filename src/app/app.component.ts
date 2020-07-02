@@ -66,6 +66,22 @@ export class AppComponent implements OnInit {
       descr: 'Reading novels by Dostoevsky',
       deadline: "2020-06-19",
       priority: 'low'
+    },
+    {
+      id:uuidv4(),
+      name: 'Spanish Homework',
+      status: 'doing',
+      descr: 'Preparation for exams',
+      deadline: "2020-07-20",
+      priority: 'high'
+    },
+    {
+      id:uuidv4(),
+      name: 'Scientific report',
+      status: 'doing',
+      descr: 'Report on the benefits of a healthy diet',
+      deadline: "2020-08-01",
+      priority: 'low'
     }
   ]
   todoTasks: Task[]
@@ -73,8 +89,8 @@ export class AppComponent implements OnInit {
   doneTasks: Task[]
   sortBy: string = 'deadline'
   asc: boolean = false
+
   ngOnInit () {
-    console.log(this.asc?-1:1)
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       deadline: new FormControl(''),
@@ -82,24 +98,21 @@ export class AppComponent implements OnInit {
       priority: new FormControl('medium'),
       descr: new FormControl('')
     })
-    this.todoTasks = this.tasks.filter(r=>r.status==='todo')
-    this.doingTasks = this.tasks.filter(r=>r.status==='doing')
-    this.doneTasks = this.tasks.filter(r=>r.status==='done')
+    this.updateTasks()
   }
+
   addTask() {
     this.tasks.unshift({ id:uuidv4(),...this.form.value})
-    console.log(this.tasks)
     this.form.setValue({...this.defaultTask})
     this.form.markAsUntouched()
-    console.log(this.tasks)
     this.updateTasks()
   }
+
   deleteTask(delTask) {
     this.tasks.splice(this.tasks.indexOf(delTask),1)
-    console.log(this.tasks)
     this.updateTasks()
-
   }
+
   onChange(val,t){
     this.tasks[this.tasks.indexOf(t)][val.field] = val.value
     this.updateTasks()
@@ -153,8 +166,8 @@ export class AppComponent implements OnInit {
 
   sortByPriority(a, b) {
     if (a.priority === b.priority) return 0
-    if (PriorityEnum[a.priority] < PriorityEnum[b.priority]) return this.asc?-1:1
-    if (PriorityEnum[a.priority] > PriorityEnum[b.priority]) return this.asc?1:-1
+    if (PriorityEnum[a.priority] < PriorityEnum[b.priority]) return this.asc?1:-1
+    if (PriorityEnum[a.priority] > PriorityEnum[b.priority]) return this.asc?-1:1
   }
   
 }

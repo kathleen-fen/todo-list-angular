@@ -22,29 +22,25 @@ export class TaskComponent implements OnInit{
     this.form = new FormGroup({
       name: new FormControl(this.task.name, Validators.required),
     })
-    
   }
+
   ngAfterViewChecked(){
     if (this.nameEditMode) this.nameEdit.nativeElement.focus()
   }
-  
-
 
   delTask(){
    this.onDelete.emit()
   }
+
   onEdit(field) {
     this[field+'EditMode'] = true
-   // setTimeout(()=>document.getElementById('editInput').focus(),100)
   }
+
   changeName(e, field) {
-      
     if (field==='name' && e.target.value.trim()==="") {
-     // document.getElementById('editInput').focus()
       this.nameEdit.nativeElement.focus()
       return 0
     }
-    
     this[field+'EditMode'] = false
     let val = {
       value: e.target.value,
