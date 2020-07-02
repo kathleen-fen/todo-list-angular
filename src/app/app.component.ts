@@ -102,10 +102,12 @@ export class AppComponent implements OnInit {
   }
 
   addTask() {
-    this.tasks.unshift({ id:uuidv4(),...this.form.value})
-    this.form.setValue({...this.defaultTask})
-    this.form.markAsUntouched()
-    this.updateTasks()
+    if (this.form.valid) {
+      this.tasks.unshift({ id:uuidv4(),...this.form.value})
+      this.form.setValue({...this.defaultTask})
+      this.form.markAsUntouched()
+      this.updateTasks()
+    } else this.form.get('name').markAsTouched()
   }
 
   deleteTask(delTask) {

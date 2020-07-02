@@ -6,9 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskComponent } from './task/task.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
